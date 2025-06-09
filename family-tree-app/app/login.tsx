@@ -1,5 +1,6 @@
 import { Image, Text, View, StyleSheet, TextInput, Button } from "react-native"
 import React, { useState } from "react";
+import { router } from "expo-router";
 
 
 export default function Login() {
@@ -10,7 +11,7 @@ export default function Login() {
   const submitCredentials = () => {
 
     if (userName == "Alex" && password == "abc")
-      alert("Success");
+      router.replace("/main")
     else
       alert("Failure");
 
@@ -61,7 +62,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     paddingHorizontal: 10,
     margin: 10,
-    borderRadius: 50,
+    borderRadius: 15,
   },
 
 });
