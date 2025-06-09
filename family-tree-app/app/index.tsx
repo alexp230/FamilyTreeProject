@@ -1,0 +1,34 @@
+import { View, Button, Text, StyleSheet } from "react-native";
+import { Link } from "expo-router";
+
+export default function Index() {
+  return (
+    <View style={styles.container}>
+
+        <Text style={styles.text}>Welcome to the Family Tree App!</Text>
+
+        <Link href="/login" asChild>
+            <Button title="Go to Login Page" />        
+        </Link>
+
+    </View>
+  );
+}
+
+
+const styles = StyleSheet.create({
+
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  text: {
+    fontSize: 50,
+    fontWeight: "bold",
+    textDecorationLine: "underline",
+    margin: 20,
+  },
+
+});
