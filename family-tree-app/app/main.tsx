@@ -1,8 +1,27 @@
-import { StyleSheet, Text, View, Button, Image } from 'react-native'
-import React from 'react'
-import { router } from 'expo-router'
+import { StyleSheet, Text, View, Button, Image } from 'react-native';
+import { useEffect, useState } from 'react';
+import { router } from 'expo-router';
+
+import { usersDB } from '@/constants/databases';
+import { readFromFile } from '@/utils/DBmethods';
 
 export default function main() {
+  const [content, setContent] = useState("");  
+  const readFile = async () => {
+    try 
+    {
+      const data = await readFromFile(usersDB);
+      setContent(data);
+    } 
+    catch (e) 
+    {
+      console.error("Failed to read file:", e);
+    }
+  };
+
+  useEffect(() => {
+    readFile();
+  }, []);
 
     const handlePress = () => {
         router.replace("/")
@@ -11,13 +30,22 @@ export default function main() {
   return (
     <View style={styles.container}>
 
-        <View style={styles.topBar}>
-            <Image source={require('../assets/images/Tree.jpg')} style={styles.image} resizeMode='contain'/>
-        
-            <Text style={styles.heading1}>Family Tree</Text>
+      <View style={styles.topBar}>
 
-            <Button title="SignOut" onPress={handlePress} />
-        </View>
+        <Image source={require('../assets/images/Tree.jpg')} style={styles.image} resizeMode='contain'/>
+
+        <Text style={styles.heading1}>Family Tree</Text>
+
+        <Button title="SignOut" onPress={handlePress} />
+      </View>
+
+      <View style={styles.container}>
+
+        <Text style={styles.label}>File Contents:</Text>
+
+        <Text style={styles.content}>{content}</Text>
+
+      </View>
 
     </View>
 
@@ -49,6 +77,14 @@ const styles = StyleSheet.create({
   heading1: {
     fontSize: 30,
     fontWeight: "bold",
-  }
+  },
+
+  label: {
+    fontSize: 20, marginBottom: 10,
+  },
+
+  content: {
+    fontSize: 16, color: 'gray', marginBottom: 20,
+  },
 
 })

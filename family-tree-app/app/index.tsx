@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
     fontSize: 50,
     fontWeight: "bold",
     textDecorationLine: "underline",
+    textAlign: "center",
     margin: 20,
   },
 

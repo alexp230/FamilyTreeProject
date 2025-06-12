@@ -2,16 +2,30 @@ import { Image, Text, View, StyleSheet, TextInput, Button } from "react-native"
 import React, { useState } from "react";
 import { router } from "expo-router";
 
+import { usersDB } from "@/constants/databases";
+import { appendToFile } from "@/utils/DBmethods";
+
 
 export default function Login() {
 
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
 
-  const submitCredentials = () => {
+  const submitCredentials = async () => {
 
     if (userName == "Alex" && password == "abc")
-      router.replace("/main")
+    {
+      try 
+      {
+        appendToFile(usersDB, `${userName},${password}`);
+        router.replace("/main");
+      } 
+      catch (error) 
+      {
+        console.error("Failed to write to file:", error);
+        alert("Something went wrong while saving login.");
+      }
+    }
     else
       alert("Failure");
 
