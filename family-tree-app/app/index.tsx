@@ -1,6 +1,8 @@
 import { View, Button, Text, StyleSheet } from "react-native";
 import { Link } from "expo-router";
 
+// import Spacer from "@/components/spacer";
+
 export default function Index() {
   return (
     <View style={styles.container}>
@@ -8,7 +10,13 @@ export default function Index() {
         <Text style={styles.text}>Welcome to the Family Tree App!</Text>
 
         <Link href="/login" asChild>
-            <Button title="Go to Login Page" />        
+            <Button title="Login" />        
+        </Link>
+
+        {/* <Spacer/> */}
+
+        <Link href="/signup" asChild>
+            <Button title="Sign Up" />        
         </Link>
 
     </View>
@@ -31,5 +39,9 @@ const styles = StyleSheet.create({
     textAlign: "center",
     margin: 20,
   },
+
+  link: {
+    margin: 10,
+  }
 
 });

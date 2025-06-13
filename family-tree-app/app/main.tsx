@@ -31,7 +31,6 @@ export default function main() {
     <View style={styles.container}>
 
       <View style={styles.topBar}>
-
         <Image source={require('../assets/images/Tree.jpg')} style={styles.image} resizeMode='contain'/>
 
         <Text style={styles.heading1}>Family Tree</Text>
@@ -40,11 +39,9 @@ export default function main() {
       </View>
 
       <View style={styles.container}>
-
         <Text style={styles.label}>File Contents:</Text>
 
         <Text style={styles.content}>{content}</Text>
-
       </View>
 
     </View>
