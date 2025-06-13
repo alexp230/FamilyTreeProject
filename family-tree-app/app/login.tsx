@@ -21,7 +21,7 @@ export default function Login() {
       if (userName === un && password === pw) {
         setUserName("");
         setPassword("");
-        router.replace("/main");
+        router.replace({pathname: "/main", params: { fn }});
         return;
       }
     };

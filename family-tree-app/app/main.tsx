@@ -1,11 +1,13 @@
 import { StyleSheet, Text, View, Button, Image } from 'react-native';
 import { useEffect, useState } from 'react';
-import { router } from 'expo-router';
+import { router, useLocalSearchParams } from 'expo-router';
 
 import { usersDB } from '@/constants/databases';
 import { readFromFile } from '@/utils/DBmethods';
 
 export default function main() {
+  const { fn } = useLocalSearchParams();
+  
   const [content, setContent] = useState("");  
   const readFile = async () => {
     try 
@@ -33,7 +35,7 @@ export default function main() {
       <View style={styles.topBar}>
         <Image source={require('../assets/images/Tree.jpg')} style={styles.image} resizeMode='contain'/>
 
-        <Text style={styles.heading1}>Family Tree</Text>
+        <Text style={styles.heading1}>{fn}'s Tree</Text>
 
         <Button title="SignOut" onPress={handlePress} />
       </View>
