@@ -1,9 +1,10 @@
-import { StyleSheet, Text, View, Button, Image } from 'react-native';
+import { StyleSheet, Text, View, Button, Image, Pressable, ImageBackground } from 'react-native';
 import { useEffect, useState } from 'react';
 import { router, useLocalSearchParams } from 'expo-router';
 
 import { usersDB } from '@/constants/databases';
 import { readFromFile } from '@/utils/DBmethods';
+import Person from '@/components/person';
 
 export default function main() {
   const { fn } = useLocalSearchParams();
@@ -46,6 +47,12 @@ export default function main() {
         <Text style={styles.content}>{content}</Text>
       </View>
 
+      <View style={styles.tree}>
+
+        <Person image={require('../assets/images/Alex.jpg')} onPress={() => console.log("Image button pressed!")}/>
+
+      </View>
+
     </View>
 
   )
@@ -53,8 +60,14 @@ export default function main() {
 
 const styles = StyleSheet.create({
 
-    container: {
+  container: {
     flex: 1,
+  },
+
+  tree: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 
   topBar: {

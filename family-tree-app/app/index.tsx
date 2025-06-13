@@ -1,9 +1,15 @@
 import { View, Button, Text, StyleSheet } from "react-native";
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 
 import Spacer from "@/components/spacer";
 
 export default function Index() {
+
+  const goToMainPage = () => {
+    const fn = "Alex";
+    router.replace({pathname: "/main", params: { fn }});
+  };
+
   return (
     <View style={styles.container}>
 
@@ -18,6 +24,10 @@ export default function Index() {
         <Link href="/signup" asChild>
             <Button title="Sign Up" />        
         </Link>
+
+        <Spacer/>
+
+        <Button title="main" onPress={goToMainPage} />
 
     </View>
   );
