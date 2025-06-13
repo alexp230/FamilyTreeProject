@@ -1,7 +1,7 @@
 import { View, Button, Text, StyleSheet } from "react-native";
 import { Link } from "expo-router";
 
-// import Spacer from "@/components/spacer";
+import Spacer from "@/components/spacer";
 
 export default function Index() {
   return (
@@ -13,7 +13,7 @@ export default function Index() {
             <Button title="Login" />        
         </Link>
 
-        {/* <Spacer/> */}
+        <Spacer/>
 
         <Link href="/signup" asChild>
             <Button title="Sign Up" />        

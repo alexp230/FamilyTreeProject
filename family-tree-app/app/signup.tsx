@@ -4,7 +4,7 @@ import { router } from "expo-router";
 
 import { usersDB } from "@/constants/databases";
 import { appendToFile, readFromFile, writeToFile } from "@/utils/DBmethods";
-// import Spacer from "@/components/spacer";
+import Spacer from "@/components/spacer";
 
 
 export default function SignUp() {
@@ -64,10 +64,10 @@ export default function SignUp() {
       <TextInput style={styles.input} placeholder="Enter FirstName:" value={firstName} onChangeText={setFirstName} />
       <TextInput style={styles.input} placeholder="Enter LastName:" value={lastName} onChangeText={setLastName} />
       <TextInput style={styles.input} placeholder="Enter Email:" value={email} onChangeText={setEmail} />
-      {/* <Spacer size={50}/> */}
+      <Spacer size={50}/>
       <TextInput style={styles.input} placeholder="Enter Username:" value={userName} onChangeText={setUserName} />
       <TextInput style={styles.input} placeholder="Enter Password:" value={password} onChangeText={setPassword} secureTextEntry={true} />
-      {/* <Spacer size={30}/> */}
+      <Spacer size={30}/>
       <Button title="Submit" onPress={submitCredentials} />
 
     </View>
