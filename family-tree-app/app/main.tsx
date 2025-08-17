@@ -2,33 +2,14 @@ import { StyleSheet, Text, View, Button, Image, Pressable, ImageBackground } fro
 import { useEffect, useState } from 'react';
 import { router, useLocalSearchParams } from 'expo-router';
 
-import { usersDB } from '@/constants/databases';
-import { readFromFile } from '@/utils/DBmethods';
-import Person from '@/components/person';
-
 export default function main() {
   const { fn } = useLocalSearchParams();
   
   const [content, setContent] = useState("");  
-  const readFile = async () => {
-    try 
-    {
-      const data = await readFromFile(usersDB);
-      setContent(data);
-    } 
-    catch (e) 
-    {
-      console.error("Failed to read file:", e);
-    }
-  };
 
-  useEffect(() => {
-    readFile();
-  }, []);
-
-    const handlePress = () => {
-        router.replace("/")
-    }
+  const handlePress = () => {
+      router.replace("/")
+  }
 
   return (
     <View style={styles.container}>
@@ -45,12 +26,6 @@ export default function main() {
         <Text style={styles.label}>File Contents:</Text>
 
         <Text style={styles.content}>{content}</Text>
-      </View>
-
-      <View style={styles.tree}>
-
-        <Person image={require('../assets/images/Alex.jpg')} onPress={() => console.log("Image button pressed!")}/>
-
       </View>
 
     </View>

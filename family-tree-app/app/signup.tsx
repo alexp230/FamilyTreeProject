@@ -2,8 +2,6 @@ import { Image, Text, View, StyleSheet, TextInput, Button } from "react-native"
 import React, { useState } from "react";
 import { router } from "expo-router";
 
-import { usersDB } from "@/constants/databases";
-import { appendToFile, readFromFile, writeToFile } from "@/utils/DBmethods";
 import Spacer from "@/components/spacer";
 
 
@@ -22,36 +20,7 @@ export default function SignUp() {
     setUserName(userName.trim());
     setPassword(password.trim());
 
-    const data = await readFromFile(usersDB);
-    const lines = data.split('\n').filter(line => line.trim() !== '');
-
-    for (const line of lines) {
-      const [fn, ln, e, un, pw] = line.split(',').map(field => field.trim());
-
-      if (e === email)
-      {
-        alert("Email is already in use.");
-        return;
-      }
-      if (un === userName)
-      {
-        alert("Username is already in use.");
-        return;
-      }
       
-    };
-
-    await appendToFile(usersDB, `${firstName},${lastName},${email},${userName},${password}`);
-
-    setFirstName("");
-    setLastName("");
-    setEmail("");
-    setUserName("");
-    setPassword("");
-
-    alert("Account has been created!");
-
-    router.replace("/");    
   };
 
   return (
