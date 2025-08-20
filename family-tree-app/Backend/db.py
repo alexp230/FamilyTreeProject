@@ -42,19 +42,28 @@ def insertUser(connection, email: str, password: str) -> str:
         return f"Error inserting user: {e}"
 
 # Step 4: Query Users
-def fetchUsers(connection, condition: str = None) -> list[tuple]:
+def fetchUsers(connection, submittedPassword: str, condition: str = None):
     query = "SELECT * FROM users"
     if condition:
         query += f" WHERE {condition}"
 
     try:
         with connection:
-            rows = connection.execute(query).fetchall()
-        print(rows)
-        return rows
+            user = connection.execute(query).fetchone() #user[0] = email, user[1] = password
+            if (not user):
+                print("No users found.")
+                return "No users found."
+            
+            if (bcrypt.checkpw(submittedPassword.encode('utf-8'), user[1])):
+                print(user)
+                return user
+            else:
+                print("Password does not match.")
+                return "Password does not match."
+        
     except Exception as e:
         print(f"Error fetching users: {e}")
-        return []
+        return f"Error fetching users: {e}"
 
 # Step 5: Delete User
 def deleteUser_Email(connection, email: str):

@@ -1,7 +1,18 @@
 from fastapi import FastAPI, HTTPException, Body
+from fastapi.middleware.cors import CORSMiddleware
+
 import db
 
+
 app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # allow all for testing
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 @app.get("/hello")
 def hello():
@@ -20,16 +31,11 @@ def signup(email: str = Body(...), password: str = Body(...)):
         connection.close()
 
 @app.post("/login")
-def login(email: str, password: str):
+def login(email: str = Body(...), password: str = Body(...)):
     connection = db.getConnection("user.db")
     try:
-        rows = db.fetchUsers(connection, f"email = '{email}'")
-        if not rows:
-            raise HTTPException(status_code=404, detail="User not found")
-        stored_email, stored_password = rows[0]
-        if stored_password != password:
-            raise HTTPException(status_code=401, detail="Invalid password")
-        return {"message": "Login successful!"}
+        returnDesc = db.fetchUsers(connection, password, f"email = '{email}'")
+        return {"message": returnDesc}
     finally:
         connection.close()
 
