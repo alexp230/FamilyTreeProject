@@ -12,8 +12,8 @@ def signup(email: str = Body(...), password: str = Body(...)):
     connection = db.getConnection("user.db")
     try:
         db.createTable(connection)  # Ensure table exists
-        db.insertUser(connection, email, password)
-        return {"message": f"User {email} created successfully."}
+        returnDesc = db.insertUser(connection, email, password)
+        return {"message": returnDesc}
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
     finally:

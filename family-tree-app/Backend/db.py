@@ -23,16 +23,19 @@ def createTable(connection):
         print(e)
 
 # Step 3: Insert User
-def insertUser(connection, email: str, password: str):
+def insertUser(connection, email: str, password: str) -> str:
     query = "INSERT INTO users (email, password) VALUES (?, ?)"
     try:
         with connection:
             connection.execute(query, (email, password))
         print(f"{email} ({password}) inserted successfully.")
+        return "Success"
     except sqlite3.IntegrityError:
         print("User already exists.")
+        return "User already exists."
     except Exception as e:
         print(f"Error inserting user: {e}")
+        return f"Error inserting user: {e}"
 
 # Step 4: Query Users
 def fetchUsers(connection, condition: str = None) -> list[tuple]:

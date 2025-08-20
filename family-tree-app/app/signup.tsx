@@ -28,7 +28,9 @@ export default function SignUp() {
           return;
         }
 
-        const response = await fetch("http://10.0.2.2:8000/signup", {method: "POST", headers: {"Content-Type": "application/json",},
+        const response = await fetch("http://10.0.2.2:8000/signup", {
+          method: "POST", 
+          headers: {"Content-Type": "application/json",},
           body: JSON.stringify({email: Email, password: Password,}),}); // Android emulator
         if (response.ok)
         {
