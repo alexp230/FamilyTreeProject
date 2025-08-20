@@ -1,4 +1,5 @@
 import sqlite3
+import bcrypt
 
 # Step 1: Setup Database
 def getConnection(dbName: str):
@@ -26,13 +27,16 @@ def createTable(connection):
 def insertUser(connection, email: str, password: str) -> str:
     query = "INSERT INTO users (email, password) VALUES (?, ?)"
     try:
+        hashedPassword = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
         with connection:
-            connection.execute(query, (email, password))
-        print(f"{email} ({password}) inserted successfully.")
+            connection.execute(query, (email, hashedPassword))
+        print(f"{email} ({hashedPassword}) inserted successfully.")
         return "Success"
+    
     except sqlite3.IntegrityError:
         print("User already exists.")
         return "User already exists."
+    
     except Exception as e:
         print(f"Error inserting user: {e}")
         return f"Error inserting user: {e}"
