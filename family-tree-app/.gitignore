@@ -36,4 +36,10 @@ yarn-error.*
 # typescript
 *.tsbuildinfo
 
+# Personal files
+Backend/user.db
+Backend/__pycache__
+
+
+
 app-example
