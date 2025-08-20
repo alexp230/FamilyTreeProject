@@ -11,40 +11,40 @@ export default function SignUp() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-      const submitCredentials = async () => {
-        const Email = email.trim();
-        const Password = password;
-        const ConfirmPassword = confirmPassword;
+  const submitCredentials = async () => {
+    const Email = email.trim();
+    const Password = password;
+    const ConfirmPassword = confirmPassword;
 
-        if (!Email || !Password || !ConfirmPassword) 
-        {
-          Alert.alert("Validation Error", "All fields are required!");
-          return;
-        }
+    if (!Email || !Password || !ConfirmPassword) 
+    {
+      Alert.alert("Validation Error", "All fields are required!");
+      return;
+    }
 
-        if (Password !== ConfirmPassword)
-        {
-          Alert.alert("Validation Error", "Passwords do not match!");
-          return;
-        }
+    if (Password !== ConfirmPassword)
+    {
+      Alert.alert("Validation Error", "Passwords do not match!");
+      return;
+    }
 
-        const response = await fetch("http://10.0.2.2:8000/signup", {
-          method: "POST", 
-          headers: {"Content-Type": "application/json",},
-          body: JSON.stringify({email: Email, password: Password,}),}); // Android emulator
-        if (response.ok)
-        {
-          const data = await response.json();
-          Alert.alert("Backend Response", JSON.stringify(data)); // show JSON in alert
-          router.replace("/login");
-        }
-        else
-        {
-          Alert.alert("Error", "Failed to connect to backend");
-        }
+    const response = await fetch("http://10.0.2.2:8000/signup", {
+      method: "POST", 
+      headers: {"Content-Type": "application/json",},
+      body: JSON.stringify({email: Email, password: Password,}),}); // Android emulator
+    if (response.ok)
+    {
+      const data = await response.json();
+      Alert.alert("Backend Response", JSON.stringify(data)); // show JSON in alert
+      router.replace("/login");
+    }
+    else
+    {
+      Alert.alert("Error", "Failed to connect to backend");
+    }
 
-        // // Proceed with further processing, e.g., saving to database  
-      };
+    // // Proceed with further processing, e.g., saving to database  
+  };
 
   return (
     <View style={styles.container}>
