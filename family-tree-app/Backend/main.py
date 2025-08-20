@@ -3,7 +3,6 @@ from fastapi.middleware.cors import CORSMiddleware
 
 import db
 
-
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
@@ -20,24 +19,19 @@ def hello():
 
 @app.post("/signup")
 def signup(email: str = Body(...), password: str = Body(...)):
-    connection = db.getConnection("user.db")
     try:
-        db.createTable(connection)  # Ensure table exists
-        returnDesc = db.insertUser(connection, email, password)
-        return {"message": returnDesc}
+        with (db.getConnection("user.db") as connection):
+            db.createTable(connection)  # Ensure table exists
+            returnDesc = db.insertUser(connection, email, password)
+            return {"message": returnDesc}
     except Exception as e:
         raise HTTPException(status_code=400, detail=str(e))
-    finally:
-        connection.close()
 
 @app.post("/login")
 def login(email: str = Body(...), password: str = Body(...)):
-    connection = db.getConnection("user.db")
-    try:
+    with (db.getConnection("user.db") as connection):
         returnDesc = db.fetchUsers(connection, password, f"email = '{email}'")
         return {"message": returnDesc}
-    finally:
-        connection.close()
 
 @app.get("/users")
 def get_users():

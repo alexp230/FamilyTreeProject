@@ -17,7 +17,7 @@ def createTable(connection):
     );
     """
     try:
-        with connection:
+        with (connection):
             connection.execute(query)
         print("Table created successfully.")
     except Exception as e:
@@ -28,7 +28,7 @@ def insertUser(connection, email: str, password: str) -> str:
     query = "INSERT INTO users (email, password) VALUES (?, ?)"
     try:
         hashedPassword = bcrypt.hashpw(password.encode('utf-8'), bcrypt.gensalt())
-        with connection:
+        with (connection):
             connection.execute(query, (email, hashedPassword))
         print(f"{email} ({hashedPassword}) inserted successfully.")
         return "Success"
@@ -44,8 +44,10 @@ def insertUser(connection, email: str, password: str) -> str:
 # Step 4: Query Users
 def fetchUsers(connection, submittedPassword: str, condition: str = None):
     query = "SELECT * FROM users"
-    if condition:
+    if (condition):
         query += f" WHERE {condition}"
+    else:
+        return connection.execute(query).fetchall()
 
     try:
         with connection:
@@ -69,7 +71,7 @@ def fetchUsers(connection, submittedPassword: str, condition: str = None):
 def deleteUser_Email(connection, email: str):
     query = "DELETE FROM users WHERE email = ?"
     try:
-        with connection:
+        with (connection):
             connection.execute(query, (email))
         print(f"User {email} deleted successfully.")
     except Exception as e:
@@ -79,7 +81,7 @@ def deleteUser_Email(connection, email: str):
 def updateUser(connection, email: str, newEmail: str, newPassword: str):
     query = "UPDATE users SET email = ?, password = ? WHERE email = ?"
     try:
-        with connection:
+        with (connection):
             connection.execute(query, (newEmail, newPassword, email))
         print(f"User '{email}' updated successfully. {newEmail} ({newPassword})")
     except Exception as e:
